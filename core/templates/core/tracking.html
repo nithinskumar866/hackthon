@@ -1,0 +1,30 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="back-link">← Back to Home</div>
+<div class="container">
+    <div class="sidebar">
+        <h1>Donations</h1>
+        <p>Track your food donations</p>
+        <div class="tabs">
+            <a href="#" class="active">All</a>
+            <a href="#">Active</a>
+            <a href="#">Completed</a>
+        </div>
+        <div class="donation-list">
+            {% for donation in donations %}
+            <div class="donation-item {% if forloop.first %}active{% endif %}">
+                <h3>{{ donation.donor_name }}</h3>
+                <p>{{ donation.food_type }} - {{ donation.quantity }}</p>
+                <p>{{ donation.pickup_time|date:"M d, h:i A" }}</p>
+                <span class="status {{ donation.status }}">{{ donation.get_status_display }}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="main-content">
+        <!-- Dynamic content based on selected donation -->
+    </div>
+</div>
+{% endblock %}

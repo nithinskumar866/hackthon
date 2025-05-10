@@ -1,0 +1,18 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="main-section">
+    <div class="text-content">
+        <h1>Reducing Food Waste, One Donation at a Time</h1>
+        <p>Connect restaurants and individuals with surplus food to NGOs and shelters. Join our mission to reduce food waste and feed those in need.</p>
+        <div class="buttons">
+            <a href="{% url 'donate' %}"><button class="donate">Donate Food</button></a>
+            <button class="register">Register as NGO</button>
+        </div>
+    </div>
+    <div class="image-placeholder">
+        <img src="{% static 'core/images/food-donation.jpg' %}" alt="Food Donation">
+    </div>
+</div>
+{% endblock %}

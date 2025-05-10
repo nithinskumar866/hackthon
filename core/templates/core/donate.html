@@ -1,0 +1,99 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <a href="{% url 'home' %}" class="back-link">← Back to Home</a>
+    <h1>Donate Surplus Food</h1>
+    <p>Fill out this form to list your surplus food for donation</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        
+        {% if form.errors %}
+        <div class="form-errors">
+            <p>Please correct the errors below:</p>
+            {{ form.non_field_errors }}
+        </div>
+        {% endif %}
+
+        <h2>Donor Information</h2>
+        <div class="form-group">
+            <label for="{{ form.donor_name.id_for_label }}">Name</label>
+            {{ form.donor_name }}
+            {{ form.donor_name.errors }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.donor_email.id_for_label }}">Email</label>
+            {{ form.donor_email }}
+            {{ form.donor_email.errors }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.donor_phone.id_for_label }}">Phone Number</label>
+            {{ form.donor_phone }}
+            {{ form.donor_phone.errors }}
+        </div>
+
+        <div class="form-group">
+    <label>Donor Type</label>
+    <div class="radio-group">
+        {% for choice in form.donor_type %}
+        <div class="radio-option">
+            <input type="radio" name="donor_type" id="{{ choice.id_for_label }}" 
+                   value="{{ choice.data.value }}" {% if choice.data.selected %}checked{% endif %}>
+            <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
+        </div>
+        {% endfor %}
+    </div>
+    {{ form.donor_type.errors }}
+</div>
+
+        <h2>Food Information</h2>
+        <div class="form-group">
+            <label for="{{ form.food_type.id_for_label }}">Food Type</label>
+            {{ form.food_type }}
+            {{ form.food_type.errors }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.quantity.id_for_label }}">Quantity</label>
+            {{ form.quantity }}
+            {{ form.quantity.errors }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.description.id_for_label }}">Description</label>
+            {{ form.description }}
+            {{ form.description.errors }}
+        </div>
+
+        <h2>Pickup Information</h2>
+        <div class="form-group">
+            <label for="{{ form.pickup_address.id_for_label }}">Pickup Address</label>
+            {{ form.pickup_address }}
+            {{ form.pickup_address.errors }}
+        </div>
+
+        <div class="date-group">
+            <div class="form-group">
+                <label for="{{ form.pickup_time.id_for_label }}">Pickup Time</label>
+                {{ form.pickup_time }}
+                {{ form.pickup_time.errors }}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.expiry_time.id_for_label }}">Expiry Time</label>
+                {{ form.expiry_time }}
+                {{ form.expiry_time.errors }}
+            </div>
+        </div>
+
+        <div class="buttons">
+            <button type="reset" class="reset-btn">Reset</button>
+            <button type="submit" class="list-btn">List Donation</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
