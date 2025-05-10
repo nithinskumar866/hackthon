@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Donation
-from .forms import DonationForm
+from .forms import DonationForm,NGOForm
 
 
 from django.shortcuts import render, redirect  # Add redirect here
@@ -36,3 +36,16 @@ def tracking(request):
 
 def notifications(request):
     return render(request, 'core/notifications.html')
+
+def register_ngo(request):
+    if request.method == 'POST':
+        form = NGOForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('registration_success')
+    else:
+        form = NGOForm()
+    return render(request, 'core/register_ngo.html', {'form': form})
+
+def registration_success(request):
+    return render(request, 'core/home.html')

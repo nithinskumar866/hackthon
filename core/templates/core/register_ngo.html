@@ -1,0 +1,59 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load form_tags %}
+
+{% block content %}
+<div class="container">
+    <a href="{% url 'home' %}" class="back-link">← Back to Home</a>
+    <h1>NGO Registration</h1>
+    <p>Register your organization to receive food donations and help reduce food waste.</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        
+        {% if form.errors %}
+        <div class="form-errors">
+            <p>Please correct the errors below:</p>
+            {{ form.non_field_errors }}
+        </div>
+        {% endif %}
+
+        <h2>Organization Information</h2>
+        {{ form.name|as_field }}
+        {{ form.registration_number|as_field }}
+        {{ form.org_type|as_field }}
+        {{ form.email|as_field }}
+        {{ form.phone|as_field }}
+        {{ form.website|as_field }}
+
+        <h2>Address</h2>
+        {{ form.street_address|as_field }}
+        <div class="address-group">
+            <div>{{ form.city|as_field }}</div>
+            <div>{{ form.state|as_field }}</div>
+            <div>{{ form.zip_code|as_field }}</div>
+        </div>
+
+        <h2>Contact Person Information</h2>
+        {{ form.contact_name|as_field }}
+        {{ form.contact_position|as_field }}
+        {{ form.contact_email|as_field }}
+        {{ form.contact_phone|as_field }}
+
+        <h2>Organization Details</h2>
+        {{ form.mission|as_field }}
+        {{ form.capacity|as_field }}
+        {{ form.has_transportation|as_field }}
+        
+        <div class="checkbox-group">
+            {{ form.agreed_to_terms }}
+            <label for="{{ form.agreed_to_terms.id_for_label }}">
+                I agree to the terms of service, privacy policy, and confirm that all information provided is accurate.
+            </label>
+            {{ form.agreed_to_terms.errors }}
+        </div>
+
+        <button type="submit" class="list-btn">Register Organization</button>
+    </form>
+</div>
+{% endblock %}
